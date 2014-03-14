@@ -1,0 +1,30 @@
+#!/bin/bash
+
+usage() {
+    cat << EOF >&2
+Usage: $0 [-r command] [ -h hostname]
+    -h target host name or ip
+    -c lets you run a remote command 
+
+Possible commands:
+    boot: create a boot package on a given host
+        ./run -c boot -h ip
+
+Sup © 2013 by Reza Jelveh
+EOF
+   exit 1
+}
+
+. VERSION
+
+# load library files
+for i in library/S??_*sh; do . $i; done
+
+. parse_parameters.sh
+
+case $command in
+    boot )
+        check_host_flag # make sure the -h host flag exists
+        ./helpers/ssh_wrapper.sh $host create_boot_package.sh ;;
+    * ) usage ;;
+esac

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+RUBY_VERSION=1.9.3-p392
+GIT_BRANCH='master'
